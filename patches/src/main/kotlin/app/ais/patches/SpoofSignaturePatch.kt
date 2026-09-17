@@ -1,27 +1,42 @@
 package app.ais.patches
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.methodCall
+import com.android.tools.smali.dexlib2.AccessFlags
 
 /**
- * Every API request authenticates with a `Bearer` hash built from a JSON blob
- * (via GSON, which serializes FIELDS, not getters) that includes the SHA-256
- * digest of the app's signing certificate. The server rejects unknown signing
- * certificates with an "application error — please redownload" dialog.
+ * Every API request authenticates with a `hash` header: a JSON blob (via GSON,
+ * which serializes FIELDS) that includes the SHA-256 digest of the app's
+ * signing certificate. The server rejects unknown signing certificates with an
+ * "Application Error - Please redownload" dialog.
  *
- * Hook `HashInformation.setSignatures()V` (the choke point that stores the
- * certificate list before serialization) so the stored list always contains
- * the original app signature, regardless of what key patched builds are
- * signed with.
+ * The digest is computed inline in `x93.b()`: `Signature.toByteArray()` ->
+ * SHA-256 -> Base64 -> added to the signature list via the getter.
+ *
+ * Hooking that inline `Base64.encodeToString()` call and replacing the result
+ * with the original app signature makes every patched build report the stock
+ * certificate, no matter what key it was signed with.
  */
-// base64(SHA-256 of the stock APK's signing certificate), NO_WRAP — the value
-// the app would report unmodified.
 private const val ORIGINAL_SIGNATURE = "VQMyUhZdmnnwK5RVCbeGqu0HN020MEDUM44crQyL1zw="
+
 object SignatureFingerprint : Fingerprint(
-    definingClass = "Lcom/streamdev/aiostreamer/datatypes/login/HashInformation;",
-    name = "setSignatures",
-    parameters = listOf("Ljava/util/List;")
+    definingClass = "Lx93;",
+    name = "b",
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Ljava/lang/String;",
+    filters = listOf(
+        methodCall(
+            definingClass = "Landroid/util/Base64;",
+            name = "encodeToString"
+        )
+    )
 )
 
 @Suppress("unused")
@@ -33,15 +48,12 @@ val spoofSignaturePatch = bytecodePatch(
     compatibleWith(Constants.COMPATIBILITY_APP)
 
     execute {
-        SignatureFingerprint.method.addInstructions(
-            0,
-            """
-                const-string v1, "$ORIGINAL_SIGNATURE"
-                filled-new-array {v1}, [Ljava/lang/String;
-                move-result-object v1
-                invoke-static {v1}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
-                move-result-object v1
-            """
-        )
+        val match = SignatureFingerprint.match()
+        // invoke-static {v6, v8}, Base64;->encodeToString([BI)  <- index
+        // move-result-object v6                                 <- index + 1
+        val index = match.instructionMatches.first().index
+        val register = match.method.getInstruction<OneRegisterInstruction>(index).registerA
+        removeInstructions(index + 1, 1)
+        replaceInstruction(index, "const-string v$register, \"$ORIGINAL_SIGNATURE\"")
     }
 }
