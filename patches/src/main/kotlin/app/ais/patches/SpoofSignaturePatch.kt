@@ -1,13 +1,10 @@
 package app.ais.patches
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
-import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
-import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.methodCall
 import com.android.tools.smali.dexlib2.AccessFlags
@@ -50,12 +47,12 @@ val spoofSignaturePatch = bytecodePatch(
 
     execute {
         val match = SignatureFingerprint.match()
-        // invoke-static {v6, v8}, Base64;->encodeToString([BI)  <- index
+        // invoke-static {v6, v8}, Base64;->encodeToString([BI)  <- index     (35c, NOT one-register)
         // move-result-object v6                                 <- index + 1
         val index = match.instructionMatches.first().index
         val method = SignatureFingerprint.method
-        val register = method.getInstruction<OneRegisterInstruction>(index).registerA
-        method.removeInstructions(index + 1, 1)
-        method.replaceInstruction(index, "const-string v$register, \"$ORIGINAL_SIGNATURE\"")
+        val register = method.getInstruction<OneRegisterInstruction>(index + 1).registerA
+        method.removeInstructions(index, 2)
+        method.addInstruction(index, "const-string v$register, \"$ORIGINAL_SIGNATURE\"")
     }
 }
