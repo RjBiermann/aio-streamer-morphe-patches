@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T17:25:53",
-  "description": "## [1.0.1](https://github.com/RjBiermann/brave-waffle/compare/v1.0.0...v1.0.1) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* spoof signing certificate hash reported to the API ([9ecce5f](https://github.com/RjBiermann/brave-waffle/commit/9ecce5f875c3ab12becd7ebec87a064058668818))",
-  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.0.1/patches-1.0.1.mpp",
+  "created_at": "2026-09-17T17:36:14",
+  "description": "## [1.0.2](https://github.com/RjBiermann/brave-waffle/compare/v1.0.1...v1.0.2) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* keep PRO unlock client-side, report pro=0 in request hash ([29d68ee](https://github.com/RjBiermann/brave-waffle/commit/29d68ee6d179da45e69e39bd020b2acc572e513e))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.0.2/patches-1.0.2.mpp",
   "signature_download_url": "",
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

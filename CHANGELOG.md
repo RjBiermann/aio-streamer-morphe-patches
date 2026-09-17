@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/RjBiermann/brave-waffle/compare/v1.0.1...v1.0.2) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* keep PRO unlock client-side, report pro=0 in request hash ([29d68ee](https://github.com/RjBiermann/brave-waffle/commit/29d68ee6d179da45e69e39bd020b2acc572e513e))
+
 ## [1.0.1](https://github.com/RjBiermann/brave-waffle/compare/v1.0.0...v1.0.1) (2026-09-17)
 
 ### 🐛 Bug Fixes
