@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "patches": [
     {
       "name": "Remove ads",
@@ -107,6 +107,40 @@
     {
       "name": "Unlock PRO",
       "description": "Unlocks all PRO features permanently.",
+      "default": true,
+      "category": null,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.streamdev.aiostreamer",
+          "name": "AIS",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#5C2D91",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "6.7.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Use free sites on TV without account",
+      "description": "Bypasses the 'User Account needed' gate so free sites are listed and playable on the TV UI without a user account.",
       "default": true,
       "category": null,
       "dependencies": [],

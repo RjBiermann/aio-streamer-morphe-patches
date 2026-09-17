@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/RjBiermann/brave-waffle/compare/v1.1.0...v1.2.0) (2026-09-17)
+
+### ✨ New Features
+
+* use free sites on TV without a user account ([610d7a2](https://github.com/RjBiermann/brave-waffle/commit/610d7a2bf37743d68e122f22682ceb2441d554a1))
+
 ## [1.1.0](https://github.com/RjBiermann/brave-waffle/compare/v1.0.4...v1.1.0) (2026-09-17)
 
 ### 🐛 Bug Fixes

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T20:37:42",
-  "description": "## [1.1.0](https://github.com/RjBiermann/brave-waffle/compare/v1.0.4...v1.1.0) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* compile issues in news promotion patch ([af97077](https://github.com/RjBiermann/brave-waffle/commit/af9707705c48bf7f56b20afb4b06863137deea6f))\n\n### ✨ New Features\n\n* Remove news promotions patch ([e4c5194](https://github.com/RjBiermann/brave-waffle/commit/e4c5194aaa8fdb1ba216c4539648d9ad7581d92e))",
-  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-09-17T22:56:34",
+  "description": "## [1.2.0](https://github.com/RjBiermann/brave-waffle/compare/v1.1.0...v1.2.0) (2026-09-17)\n\n### ✨ New Features\n\n* use free sites on TV without a user account ([610d7a2](https://github.com/RjBiermann/brave-waffle/commit/610d7a2bf37743d68e122f22682ceb2441d554a1))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.2.0/patches-1.2.0.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
