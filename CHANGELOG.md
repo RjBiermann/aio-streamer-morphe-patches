@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/RjBiermann/brave-waffle/compare/v1.2.0...v1.2.1) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* route the TV account gate to the anonymous login instead of the dialog ([f5d1a9e](https://github.com/RjBiermann/brave-waffle/commit/f5d1a9ec6f10c0e25b7708732bdd340093ea999d))
+
 ## [1.2.0](https://github.com/RjBiermann/brave-waffle/compare/v1.1.0...v1.2.0) (2026-09-17)
 
 ### ✨ New Features
