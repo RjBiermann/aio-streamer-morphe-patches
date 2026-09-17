@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T16:22:18",
-  "description": "## [1.1.0](https://github.com/RjBiermann/aio-streamer-morphe-patches/compare/v1.0.0...v1.1.0) (2026-09-17)\n\n### ✨ New Features\n\n* remove ads in all three ad tag variants (vmap, vmapc, vmap_swipe) ([f1bee21](https://github.com/RjBiermann/aio-streamer-morphe-patches/commit/f1bee2128e5079c285e2a85ccbb45aa8bdaafdac))",
-  "download_url": "https://github.com/RjBiermann/aio-streamer-morphe-patches/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-09-17T16:51:30",
+  "description": "## 1.0.0 (2026-09-17)\n\n### ✨ New Features\n\n* initial patches (Unlock PRO, Remove ads) ([a5f77b6](https://github.com/RjBiermann/brave-waffle/commit/a5f77b6065c18cd3ade00f253134a973277c5875))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.0.0/patches-1.0.0.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.0.0"
 }

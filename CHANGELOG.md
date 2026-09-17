@@ -1,3 +1,9 @@
+## 1.0.0 (2026-09-17)
+
+### ✨ New Features
+
+* initial patches (Unlock PRO, Remove ads) ([a5f77b6](https://github.com/RjBiermann/brave-waffle/commit/a5f77b6065c18cd3ade00f253134a973277c5875))
+
 ## [1.1.0](https://github.com/RjBiermann/aio-streamer-morphe-patches/compare/v1.0.0...v1.1.0) (2026-09-17)
 
 ### ✨ New Features
