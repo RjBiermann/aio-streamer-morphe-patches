@@ -19,6 +19,10 @@ import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringRefere
  * Replacing each ad tag URL with an empty string makes the ad request fail
  * and playback continues with content only.
  */
+// ponytail: dummy URL must be non-empty — "" makes the IMA SDK throw
+// IllegalArgumentException at video start (ad error event is fine, empty is not)
+private const val DUMMY_AD_URL = "aHR0cDovLzEyNy4wLjAuMS94" // http://127.0.0.1/x
+
 private val VMAP_AD_URLS = arrayOf(
     "aHR0cHM6Ly9wb3JuLWFwcC5jb20vdm1hcC54bWw=",
     "aHR0cHM6Ly9wb3JuLWFwcC5jb20vdm1hcGMueG1s",
@@ -42,7 +46,7 @@ val removeAdsPatch = bytecodePatch(
                     BuilderInstruction21c(
                         Opcode.CONST_STRING,
                         register,
-                        ImmutableStringReference("")
+                        ImmutableStringReference(DUMMY_AD_URL)
                     )
                 )
             }
