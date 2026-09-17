@@ -3,6 +3,8 @@ package app.ais.patches
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.patch.bytecodePatch
+import com.android.tools.smali.dexlib2.iface.instruction.Instruction
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 /**
@@ -41,8 +43,10 @@ val removeNewsPromotionPatch = bytecodePatch(
         val method = NewsWebClientFingerprint.method
         // The first invoke-super is the default (non-switch) branch, immediately
         // followed by return-void. Inject the JS call between them.
-        val superIndex = method.implementation.instructions.indexOfFirst {
-            (it.reference as? MethodReference)?.definingClass == "Landroid/webkit/WebViewClient;"
+        val impl = method.implementation!!
+        val superIndex = impl.instructions.indexOfFirst {
+            val ref = (it as? ReferenceInstruction)?.reference as? MethodReference
+            ref?.definingClass == "Landroid/webkit/WebViewClient;"
         }
         method.addInstruction(superIndex + 1, "const-string v0, \"$STRIP_PROMOTION_JS\"")
         method.addInstruction(superIndex + 2, "const/4 v1, 0x0")
