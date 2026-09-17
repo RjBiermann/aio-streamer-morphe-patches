@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-17T19:00:50",
-  "description": "## [1.0.4](https://github.com/RjBiermann/brave-waffle/compare/v1.0.3...v1.0.4) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* read result register from move-result-object, not the invoke itself ([a1b7fad](https://github.com/RjBiermann/brave-waffle/commit/a1b7fad9b0d3da10f0101d1fc3d8dbcf4263e2ac))",
-  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.0.4/patches-1.0.4.mpp",
+  "created_at": "2026-09-17T20:37:42",
+  "description": "## [1.1.0](https://github.com/RjBiermann/brave-waffle/compare/v1.0.4...v1.1.0) (2026-09-17)\n\n### 🐛 Bug Fixes\n\n* compile issues in news promotion patch ([af97077](https://github.com/RjBiermann/brave-waffle/commit/af9707705c48bf7f56b20afb4b06863137deea6f))\n\n### ✨ New Features\n\n* Remove news promotions patch ([e4c5194](https://github.com/RjBiermann/brave-waffle/commit/e4c5194aaa8fdb1ba216c4539648d9ad7581d92e))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.1.0/patches-1.1.0.mpp",
   "signature_download_url": "",
-  "version": "1.0.4"
+  "version": "1.1.0"
 }

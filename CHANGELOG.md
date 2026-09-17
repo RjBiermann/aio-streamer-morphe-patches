@@ -1,3 +1,13 @@
+## [1.1.0](https://github.com/RjBiermann/brave-waffle/compare/v1.0.4...v1.1.0) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* compile issues in news promotion patch ([af97077](https://github.com/RjBiermann/brave-waffle/commit/af9707705c48bf7f56b20afb4b06863137deea6f))
+
+### ✨ New Features
+
+* Remove news promotions patch ([e4c5194](https://github.com/RjBiermann/brave-waffle/commit/e4c5194aaa8fdb1ba216c4539648d9ad7581d92e))
+
 ## [1.0.4](https://github.com/RjBiermann/brave-waffle/compare/v1.0.3...v1.0.4) (2026-09-17)
 
 ### 🐛 Bug Fixes
