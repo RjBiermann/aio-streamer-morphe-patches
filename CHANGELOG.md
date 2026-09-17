@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/RjBiermann/brave-waffle/compare/v1.0.2...v1.0.3) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* spoof signature at the inline digest site in x93.b (setSignatures is never called on this path) ([590c1cb](https://github.com/RjBiermann/brave-waffle/commit/590c1cb6d498ae8b969755268473e16e8dac2264))
+* use fingerprint mutable method for instruction replacement ([2664582](https://github.com/RjBiermann/brave-waffle/commit/26645826e9bb65a961f123601d2ed79f32d0d624))
+
 ## [1.0.2](https://github.com/RjBiermann/brave-waffle/compare/v1.0.1...v1.0.2) (2026-09-17)
 
 ### 🐛 Bug Fixes
