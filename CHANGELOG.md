@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/RjBiermann/brave-waffle/compare/v1.0.3...v1.0.4) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* read result register from move-result-object, not the invoke itself ([a1b7fad](https://github.com/RjBiermann/brave-waffle/commit/a1b7fad9b0d3da10f0101d1fc3d8dbcf4263e2ac))
+
 ## [1.0.3](https://github.com/RjBiermann/brave-waffle/compare/v1.0.2...v1.0.3) (2026-09-17)
 
 ### 🐛 Bug Fixes
