@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/RjBiermann/brave-waffle/compare/v1.0.0...v1.0.1) (2026-09-17)
+
+### 🐛 Bug Fixes
+
+* spoof signing certificate hash reported to the API ([9ecce5f](https://github.com/RjBiermann/brave-waffle/commit/9ecce5f875c3ab12becd7ebec87a064058668818))
+
 ## 1.0.0 (2026-09-17)
 
 ### ✨ New Features
