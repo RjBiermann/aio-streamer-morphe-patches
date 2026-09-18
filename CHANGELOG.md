@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/RjBiermann/brave-waffle/compare/v1.4.0...v1.4.1) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* drop the dev-branch backmerge plugin ([332fa59](https://github.com/RjBiermann/brave-waffle/commit/332fa5995154d292e60edabc4fd3bb2500fb58de))
+
 ## [1.4.0](https://github.com/RjBiermann/brave-waffle/compare/v1.3.0...v1.4.0) (2026-09-18)
 
 ### 🐛 Bug Fixes

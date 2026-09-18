@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-18T02:27:18",
-  "description": "## [1.4.0](https://github.com/RjBiermann/brave-waffle/compare/v1.3.0...v1.4.0) (2026-09-18)\n\n### 🐛 Bug Fixes\n\n* decode the dummy ad URL before replacing VMAP ad tags ([1d3a165](https://github.com/RjBiermann/brave-waffle/commit/1d3a1655e704ca81e5920ab959486302496ee3b7))\n\n### ✨ New Features\n\n* bypass TV PRO check on site browsing ([1790c46](https://github.com/RjBiermann/brave-waffle/commit/1790c462f8e1c378fdd93d2c882ecf69217b3c1f))",
-  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.4.0/patches-1.4.0.mpp",
+  "created_at": "2026-09-18T02:35:14",
+  "description": "## [1.4.1](https://github.com/RjBiermann/brave-waffle/compare/v1.4.0...v1.4.1) (2026-09-18)\n\n### 🐛 Bug Fixes\n\n* drop the dev-branch backmerge plugin ([332fa59](https://github.com/RjBiermann/brave-waffle/commit/332fa5995154d292e60edabc4fd3bb2500fb58de))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.4.1/patches-1.4.1.mpp",
   "signature_download_url": "",
-  "version": "1.4.0"
+  "version": "1.4.1"
 }
