@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/RjBiermann/brave-waffle/compare/v1.4.1...v1.5.0) (2026-09-18)
+
+### ✨ New Features
+
+* suppress TV player 'Error occured' popup ([d90d217](https://github.com/RjBiermann/brave-waffle/commit/d90d21763e2ed2ac5adb25c5ca1c9f5c673fc342))
+
 ## [1.4.1](https://github.com/RjBiermann/brave-waffle/compare/v1.4.0...v1.4.1) (2026-09-18)
 
 ### 🐛 Bug Fixes
