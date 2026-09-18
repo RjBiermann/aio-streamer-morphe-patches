@@ -53,12 +53,17 @@ Key facts from upstream (v1.43.0, 147 patches):
 ## Build & release
 
 ```bash
-# local build (gh token needs read:packages for the morphe registry)
+# local build — gh token has read:packages, so no separate PAT needed:
+# GITHUB_ACTOR=RjBiermann GITHUB_TOKEN=$(gh auth token) works
 export GITHUB_ACTOR=RjBiermann GITHUB_TOKEN=$(gh auth token)
 ./gradlew :patches:build -q    # → patches/build/libs/patches-*.mpp
 ```
 
 - CI releases `patches-*.mpp` on every push (semantic-release, conventional commits).
+  **A push IS a release — always verify locally first**: build the .mpp, patch the stock
+  APK with `../bin/morphe-desktop.jar` (see Test below), and check the result (at minimum
+  all patches apply and the patched APK decodes; ideally emulator spot-check) BEFORE
+  `git push`.
 - Release rules: `feat:` → minor, `fix:` → patch, `chore:` → no release.
 - Generated files (`README.md` patches list, `patches-bundle.json`, `CHANGELOG.md`)
   are CI-generated — don't hand-edit; they update only on releases.
@@ -89,8 +94,8 @@ java -jar ../bin/morphe-desktop.jar patch ../<stock apk>.apk -o out.apk -p <mpp>
   `compileOnly(libs.gson)` also declared (upstream has gson only in the
   patchListGenerator classpath); extensions/stub modules removed — keep bytecode-only.
 - Registry auth: Morphe gradle plugin resolves from `maven.pkg.github.com/MorpheApp/registry`
-  — works in Actions with GITHUB_TOKEN; locally needs a PAT with `read:packages`
-  (env `GITHUB_ACTOR`/`GITHUB_TOKEN` or gradle.properties `gpr.user`/`gpr.key`).
+  — works in Actions with GITHUB_TOKEN; locally `gh auth token` (which now includes
+  `read:packages`) passed as `GITHUB_ACTOR`/`GITHUB_TOKEN` works too.
 - Patch API: `bytecodePatch(name, description, default=true)`,
   `Fingerprint(definingClass, name, returnType)`, `method.addInstruction(index, "<smali>")`;
   no `InterfaceReference` class in this dexlib2 fork — use `MethodReference` +
