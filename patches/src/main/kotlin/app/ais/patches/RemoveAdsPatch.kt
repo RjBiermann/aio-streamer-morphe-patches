@@ -21,7 +21,8 @@ import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringRefere
  */
 // ponytail: dummy URL must be non-empty — "" makes the IMA SDK throw
 // IllegalArgumentException at video start (ad error event is fine, empty is not)
-private const val DUMMY_AD_URL = "aHR0cDovLzEyNy4wLjAuMS94" // http://127.0.0.1/x
+private val DUMMY_AD_URL = java.util.Base64.getDecoder()
+    .decode("aHR0cDovLzEyNy4wLjAuMS94").toString(Charsets.UTF_8) // http://127.0.0.1/x
 
 private val VMAP_AD_URLS = arrayOf(
     "aHR0cHM6Ly9wb3JuLWFwcC5jb20vdm1hcC54bWw=",
