@@ -103,18 +103,33 @@ val tvDataIsTvPatch = bytecodePatch(
         // SiteInfoRequest ctor: force pornTabs=false (server 403s pornTabs=true)
         // and default a null filter (the TV site screen passes no filter; the
         // server rejects the resulting body on /link with "not logged in").
+        // ponytail: p3=0 (pornTabs) is always-safe (only the TV site screen sends
+        // true). The null-filter→StandardFilter default must NOT hit the phone
+        // (it broke the phone's search tracker flow), so gate it on the runtime
+        // uimode check: p2 is reused as scratch only while it is null; non-TV
+        // devices get null restored. uiMode&0xF==4 ⇔ UI_MODE_TYPE_TELEVISION —
+        // misses TVs that report normal uimode, acceptable ceiling.
         val sirMethod = TvSiteInfoRequestCtorFingerprint.method
-        sirMethod.addInstruction(0, "const/4 p3, 0x0")
-        // after the const insert: 0 super, 1 const, 2 iput site, 3 iput filter
-        val filterIput = sirMethod.implementation!!.instructions[3]
         sirMethod.addInstructionsWithLabels(
-            2,
+            0,
             """
-                if-eqz p2, :cond_sf
+                if-nez p2, :cond_sir_end
+                invoke-static {}, Landroid/content/res/Resources;->getSystem()Landroid/content/res/Resources;
+                move-result-object p2
+                invoke-virtual {p2}, Landroid/content/res/Resources;->getConfiguration()Landroid/content/res/Configuration;
+                move-result-object p2
+                iget p2, p2, Landroid/content/res/Configuration;->uiMode:I
+                and-int/lit8 p2, p2, 0xf
+                add-int/lit8 p2, p2, -0x4
+                if-nez p2, :cond_sir_null
                 new-instance p2, Lcom/streamdev/aiostreamer/filters/StandardFilter;
                 invoke-direct {p2}, Lcom/streamdev/aiostreamer/filters/StandardFilter;-><init>()V
-            """,
-            ExternalLabel("cond_sf", filterIput)
+                goto/16 :cond_sir_end
+                :cond_sir_null
+                const/4 p2, 0x0
+                :cond_sir_end
+                const/4 p3, 0x0
+            """
         )
 
         // The pornTabs=false responses omit some VideoInformation lists (e.g.
