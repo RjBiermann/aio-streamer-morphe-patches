@@ -2,11 +2,9 @@ package app.ais.patches
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
-import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.Opcode
-import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 /**
  * On TV, the sites screen (`wk2`) shows site tiles only for
@@ -36,6 +34,13 @@ object SitePackagenameFingerprint : Fingerprint(
  * which is only set by the login success callback). Routing the empty-branch
  * to the login path (`fk.q`) instead performs a silent anonymous login whose
  * success callback sets `u4 = true` and un-gates the tiles.
+ *
+ * The second `Z` parameter keeps the real login entry point working: the
+ * callers are startup (`wk2.u0`, p2=false), site-tile click (`k23`,
+ * p2=false) and the "Login with PRO Account" tile (`k23` pswitch_19,
+ * p2=true). The isEmpty force is applied only when p2=false; with p2=true
+ * the stock branch is kept, so the login tile still opens the dialog with
+ * username/password + Sign Up for a real (free or PRO) login.
  */
 object TvAccountGateFingerprint : Fingerprint(
     definingClass = "Lwk2;",
@@ -72,7 +77,18 @@ val bypassAccountNeededPatch = bytecodePatch(
             }
         }
         check(isEmptyResult >= 0) { "b1: isEmpty move-result not found" }
-        val reg = gate.getInstruction<OneRegisterInstruction>(isEmptyResult).registerA
-        gate.replaceInstruction(isEmptyResult, "const/4 v$reg, 0x0")
+        // p2=true only from the "Login with PRO Account" tile: keep the real
+        // isEmpty result there so the login dialog opens (real PRO login).
+        // p2=false (startup / site-tile gate): force isEmpty=false → silent
+        // anonymous login, the bypass this patch exists for.
+        gate.addInstructionsWithLabels(
+            isEmptyResult + 1,
+            """
+                if-nez p2, :cond_morphe_anon
+                const/4 p1, 0x0
+                :cond_morphe_anon
+            nop
+            """.trimIndent()
+        )
     }
 }
