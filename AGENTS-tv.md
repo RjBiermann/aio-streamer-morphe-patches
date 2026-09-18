@@ -19,6 +19,15 @@ Entry: `AGENTS.md`. Login/server walls: `AGENTS-login.md`.
   all sites + click path) and `wk2.b1`'s `String.isEmpty` result forced to false
   (always the `fk.q` login route → callback sets `u4=true` → clicks work).
   fk.s's empty-creds pref clearing is a no-op on an anonymous device.
+  **Real login kept (v1.8.0, verified 2026-09-18 on emulator: tile → dialog →
+  LOGIN form → server login → favorites fetch works)**: `b1(ZZ)`'s second param
+  is `true` ONLY at the "Login with PRO Account" tile call site (`k23` pswitch_19,
+  `b1(v10,v10)`; startup `wk2.u0` → `b1(p1,0)`, tile click `k23:2229` → `b1(1,0)`).
+  The isEmpty force is now conditional on `p2=false`; with `p2=true` the stock
+  branch survives → the tile opens `fk.D` (LOGIN → "Set your Login Details"
+  username/password dialog, SIGN UP inside). Cosmetic: the login-success PRO
+  Check dialog still shows the spoofed-MAX overflow date "1969-12-31 -
+  579004505 days remaining".
 - **Server wall — SOLVED (patches v1.3.0, TvDataIsTvPatch, verified 2026-09-18 on
   emulator: browse + video playback work anonymously, TV and phone)**: the
   "It seems you are not a PRO User!..." HTTP 403 is NOT account state — it is

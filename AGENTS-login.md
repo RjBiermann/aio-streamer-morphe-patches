@@ -44,6 +44,9 @@ Details:
 **TV difference**: "everything is PRO" — even browsing is a server-side PRO gate (it
 checks the account's server state, not the hash's pro; past-pro hash tested → rejected).
 The TV tile/login gates are client-side and already patched (see `AGENTS-tv.md`).
+TV login UI exists again (v1.8.0): "Login with PRO Account" tile → `fk.D` dialog →
+LOGIN ("Set your Login Details" username/password) or SIGN UP — the free-sites
+bypass no longer swallows it.
 
 **Goal**: make not-logged-in and logged-in flows seamless, bypass every client-side
 PRO check (done — getter hook; only leftover above). Server-side walls (PornDB for
