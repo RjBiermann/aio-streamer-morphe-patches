@@ -32,6 +32,11 @@ Entry: `AGENTS.md`. Login states: `AGENTS-login.md`. TV: `AGENTS-tv.md`.
   3. `findInstructionIndicesReversedOrThrow { lambda }` (patches-library 1.6.2)
      fails to resolve as an extension with a typed lambda — use a plain
      `instructions.indexOfFirst { }` scan instead.
+  4. An injected early-return guard compiles/applies fine and still be INVERTED
+     (`if-eqz` vs `if-nez`) — application success proves nothing about runtime
+     semantics. Cost: shipped v1.7.0 with the m72.c error-dialog gate backwards
+     (default OFF = popup shown). Verify each branch direction on the emulator:
+     trigger the guarded path with the pref OFF (popup must be gone) AND ON.
 
 - **API surface**: `https://porn-app.com/api/` (Retrofit, `dj.smali`), endpoints
   `v9/device`, `v9/sites`, `v9/unixTime`, `v9/login`, `v9/videoheaders`… Requests carry
