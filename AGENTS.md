@@ -9,11 +9,18 @@ One universal APK serves phone + Android TV (TV UI is runtime-detected via
 ## Patches
 
 - **Unlock PRO** (`ProUnlockPatch.kt`): hooks `Lcom/streamdev/aiostreamer/datatypes/login/LoginStatus;->getPro()J`
-  to `return-wide` `Long.MAX_VALUE`. Every PRO check in the app is `getPro() > getUnixtime()`.
-  Fingerprint targets an unobfuscated class/method — expected to survive updates.
-  Known ceiling: the getter value is also fed into the `Bearer` request hash built by
-  `x93.b()`; if the server starts rejecting it, patch the `cmp-long` sites instead
-  (classes eb0, jp9, v5a, p81 in the decompile).
+  to `return-wide` `Long.MAX_VALUE`, and no-ops `setPro(J)` (return-void). Every local
+  PRO check is `getPro() > now` (mostly `getUnixtime()`, one site compares
+  `System.currentTimeMillis()/1000` — `g75`) and all reads go through the getter, so
+  both client states collapse: not-logged-in ≈ logged-in-free ≈ PRO for all client-side
+  gates. Fingerprint targets an unobfuscated class/method — expected to survive updates.
+  Hash safety: `x93.b()` (request-hash builder) reads `getPro()` then stores it via
+  `setPro()` — the no-op keeps `loginStatus.pro` at 0 in the RSA-encrypted hash, which
+  the server accepts (verified: `sig=orig, pro=0` → 200; `pro=MAX` in the hash → 500
+  redownload error). If the server ever tightens hash validation further, patch the
+  `cmp-long` sites instead (classes eb0, g75, jp9, p81, v5a in the decompile).
+  Server-side walls (PornDB for anonymous, TV browse for non-PRO accounts) are NOT
+  covered by this patch — see workspace root AGENTS.md "Login state model".
 - **Remove ads** (`RemoveAdsPatch.kt`): empties the three VMAP ad-tag URL const-strings
   (standard/popup player, "c" player `ql0`, swipe player `os7`). URLs are stored as raw
   base64 literals — the app's domain must never appear in plain text anywhere in this repo.
