@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/RjBiermann/brave-waffle/compare/v1.6.0...v1.7.0) (2026-09-18)
+
+### ✨ New Features
+
+* add settings-page toggles on phone and TV screens ([f6281a5](https://github.com/RjBiermann/brave-waffle/commit/f6281a55ac1076ada933834548ab646b0e20abcc))
+
 ## [1.6.0](https://github.com/RjBiermann/brave-waffle/compare/v1.5.1...v1.6.0) (2026-09-18)
 
 ### ✨ New Features
