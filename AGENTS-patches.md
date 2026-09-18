@@ -14,8 +14,11 @@ Entry: `AGENTS.md`. Login states: `AGENTS-login.md`. TV: `AGENTS-tv.md`.
   toggles exposed: `morphe_hide_nav_pro` (phone settings row + TV action, read in
   `NavDrawer.onCreate` — default false = links visible), `morphe_show_api_errors`
   (TV action, read in `m72.c` — default false = popup suppressed, replaces the old
-  unconditional `m72.a` return-void), `morphe_remove_news_promo` (no UI row, read in
-  `ce0.onPageFinished` — default true). HideNavProLinksPatch default is now TRUE
+  unconditional `m72.a` return-void; takes effect on the next popup, no restart),
+  `morphe_remove_news_promo` (no UI row, read in
+  `ce0.onPageFinished` — default true; applies on next news-page load).
+  `morphe_hide_nav_pro` is the only one needing an app restart (read in
+  `NavDrawer.onCreate`). HideNavProLinksPatch default is now TRUE
   (pref-controlled); TV guided action ids: ours is 0x40, app's are 1..7.
   Register tricks: NavDrawer gate reuses v0/v1/v8 (v8=false doubles as pref default);
   `ce0.onPageFinished` clobbers p2 (URL dead in the default branch after invoke-super)
