@@ -1,3 +1,9 @@
+## [1.8.0](https://github.com/RjBiermann/brave-waffle/compare/v1.7.1...v1.8.0) (2026-09-18)
+
+### ✨ New Features
+
+* keep real login dialog on TV via login tile ([f9db0c2](https://github.com/RjBiermann/brave-waffle/commit/f9db0c2df86103de973fd11eaab96892bdb60faa))
+
 ## [1.7.1](https://github.com/RjBiermann/brave-waffle/compare/v1.7.0...v1.7.1) (2026-09-18)
 
 ### 🐛 Bug Fixes
