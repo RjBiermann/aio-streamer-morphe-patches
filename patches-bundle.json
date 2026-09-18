@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-18T17:44:20",
-  "description": "## [1.5.1](https://github.com/RjBiermann/brave-waffle/compare/v1.5.0...v1.5.1) (2026-09-18)\n\n### 🐛 Bug Fixes\n\n* TV-scope SiteInfoRequest forcing so phone search works ([2ad4398](https://github.com/RjBiermann/brave-waffle/commit/2ad4398c5b8e8f3fd081fb35ddc038107a699750))",
-  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.5.1/patches-1.5.1.mpp",
+  "created_at": "2026-09-18T18:20:58",
+  "description": "## [1.6.0](https://github.com/RjBiermann/brave-waffle/compare/v1.5.1...v1.6.0) (2026-09-18)\n\n### ✨ New Features\n\n* remove ad-tracker tiles from site lists and search results ([f349fb3](https://github.com/RjBiermann/brave-waffle/commit/f349fb315731176c60bfad7e213f978e254928c0))",
+  "download_url": "https://github.com/RjBiermann/brave-waffle/releases/download/v1.6.0/patches-1.6.0.mpp",
   "signature_download_url": "",
-  "version": "1.5.1"
+  "version": "1.6.0"
 }

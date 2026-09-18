@@ -9,9 +9,9 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.5.1](https://github.com/RjBiermann/brave-waffle/releases/tag/v1.5.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
+> **[v1.6.0](https://github.com/RjBiermann/brave-waffle/releases/tag/v1.6.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;9 patches total
 <details open>
-<summary>📦 AIS&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
+<summary>📦 AIS&nbsp;&nbsp;•&nbsp;&nbsp;9 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -26,6 +26,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 | [Remove TV player error dialog](#remove-tv-player-error-dialog) | Suppress the 'Error occured' popup on playback failures |  |
 | [Remove ads](#remove-ads) | Removes video ad breaks from the standard and popup video players. |  |
 | [Remove news promotions](#remove-news-promotions) | Removes the third-party paysite promotion banner from the startup news page. |  |
+| [Remove search ad tiles](#remove-search-ad-tiles) | Removes the ad-tracker tiles (porn-app.com/nat1, /midad) from site search results. |  |
 | [Spoof app signature](#spoof-app-signature) | Reports the original app signature to the API so patched builds are not rejected. |  |
 | [Unlock PRO](#unlock-pro) | Unlocks all PRO features permanently. |  |
 | [Use free sites on TV without account](#use-free-sites-on-tv-without-account) | Bypasses the 'User Account needed' gate so free sites are listed and playable on the TV UI without a user account. |  |

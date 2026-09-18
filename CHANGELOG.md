@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/RjBiermann/brave-waffle/compare/v1.5.1...v1.6.0) (2026-09-18)
+
+### ✨ New Features
+
+* remove ad-tracker tiles from site lists and search results ([f349fb3](https://github.com/RjBiermann/brave-waffle/commit/f349fb315731176c60bfad7e213f978e254928c0))
+
 ## [1.5.1](https://github.com/RjBiermann/brave-waffle/compare/v1.5.0...v1.5.1) (2026-09-18)
 
 ### 🐛 Bug Fixes
