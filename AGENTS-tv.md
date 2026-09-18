@@ -48,3 +48,28 @@ Entry: `AGENTS.md`. Login/server walls: `AGENTS-login.md`.
   For TV emulator testing, patch locally with the morphe CLI (keeps all ABIs) —
   see `../AGENTS.md` "How to build".
 - TV D-pad: keyevent 19/20/66; AVD is 1920x1080 direct coords for taps.
+- **TV player "Error occured" popup — SOLVED (RemoveTvPlayerErrorDialogPatch,
+  verified 2026-09-18: HQPorner video plays fullscreen on TV, no popup, 0 FATAL)**:
+  the TV player chain (fresh `GET v9/video/{id}/info` → `s()` → site chain) makes
+  calls the server app-level 403s for anonymous accounts (`POST /porndb`,
+  `POST /sites/{tag}/related?isTV=false` — HTTP 200 + error body, NOT real 403s;
+  all responses succeed at HTTP level, `zk6.Z=true`). These failures are
+  NON-FATAL for playback — video plays fine. But every caught APIException
+  routes through `m72.a(Context, Throwable)` (xj2.b log → dialog with the server
+  message; callers: rp8.onError case 0x10, its refetch runnable zg2 (4 sites),
+  ah2/eb0/ee1/f76/ff4/ig2/k80/ky2/lk2) → the "Error occured — You are not logged
+  in!" popup. Fix: keep the xj2.b log, `return-void` right after it in m72.a —
+  silences this popup class app-wide (no functional regressions observed).
+  Debugging recipe: extend DebugLogPatch with (a) request logger at h72.a index 0
+  (`iget-object p0, p1, Lue6;->e:Lwi6;`), (b) response-failure logger after
+  `ue6.b` move-result (`zk6.Z` false → log url), (c) response-body dump in
+  fl6.string via `source().peek().request(MAX)` + `U(UTF_8)` — body parse for the
+  app-level error happens INSIDE h72.a (throws APIException at line 104),
+  not in a converter. The popup text comes from the server's error body
+  (Gson→ErrorResponse→message). Compare failing-vs-working devices by dumping
+  the SAME request on phone and TV — bodies are byte-identical; the
+  differentiator is only the encrypted hash/token, so don't chase request-body
+  diffs.
+- Anonymous-account note: wiping app data on the phone creates a fresh anonymous
+  account which can still `/link` + play — the gate is in the TV-only request
+  paths, not account age.
