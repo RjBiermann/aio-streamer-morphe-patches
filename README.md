@@ -9,9 +9,9 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/RjBiermann/brave-waffle/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;5 patches total
+> **[v1.3.0](https://github.com/RjBiermann/brave-waffle/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
 <details open>
-<summary>📦 AIS&nbsp;&nbsp;•&nbsp;&nbsp;5 patches</summary>
+<summary>📦 AIS&nbsp;&nbsp;•&nbsp;&nbsp;6 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -21,6 +21,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
+| [Hide account/PRO nav links](#hide-account-pro-nav-links) | Hides the account and PRO-only entries (Your Account, Get Free PRO, PRO Benefits, PornDB, Global Search, PornTabs) from the mobile navigation drawer. |  |
 | [Remove ads](#remove-ads) | Removes video ad breaks from the standard and popup video players. |  |
 | [Remove news promotions](#remove-news-promotions) | Removes the third-party paysite promotion banner from the startup news page. |  |
 | [Spoof app signature](#spoof-app-signature) | Reports the original app signature to the API so patched builds are not rejected. |  |

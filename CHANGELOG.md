@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/RjBiermann/brave-waffle/compare/v1.2.1...v1.3.0) (2026-09-18)
+
+### ✨ New Features
+
+* hide account/PRO nav drawer links (disabled by default) ([9a43f65](https://github.com/RjBiermann/brave-waffle/commit/9a43f65891eb19dfdbcea9d05cbd62777aa5b15a))
+
 ## [1.2.1](https://github.com/RjBiermann/brave-waffle/compare/v1.2.0...v1.2.1) (2026-09-17)
 
 ### 🐛 Bug Fixes
