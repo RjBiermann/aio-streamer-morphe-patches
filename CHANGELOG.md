@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/RjBiermann/brave-waffle/compare/v1.5.0...v1.5.1) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* TV-scope SiteInfoRequest forcing so phone search works ([2ad4398](https://github.com/RjBiermann/brave-waffle/commit/2ad4398c5b8e8f3fd081fb35ddc038107a699750))
+
 ## [1.5.0](https://github.com/RjBiermann/brave-waffle/compare/v1.4.1...v1.5.0) (2026-09-18)
 
 ### ✨ New Features
