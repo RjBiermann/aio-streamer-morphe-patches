@@ -2,6 +2,7 @@ package app.ais.patches
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
@@ -11,15 +12,21 @@ import com.android.tools.smali.dexlib2.iface.reference.MethodReference
  * (working, PRO) server account: "Your Account" (login), "Get Free PRO",
  * "PRO Benefits", "PornDB", "Global Search" and "PornTabs". The server
  * rejects these features for non-whitelisted builds and non-PRO accounts
- * ("You are not logged in!" / redownload error), so they are hidden from
+ * ("You are not logged in!" / redownload error), so they can be hidden from
  * the drawer. "Player Playlist" is client-side and stays.
+ *
+ * Runtime-toggleable: the pref `morphe_hide_nav_pro` (default false, i.e.
+ * links visible) is set by the "Hide account / PRO links" switch added to
+ * the phone settings screen by ModSettingsPatch, and read here in
+ * `NavDrawer.onCreate` so a toggle applies on the next screen creation.
  *
  * The app already hides its debug entries (Test Suite / Errors / Get Link)
  * in `NavDrawer.onCreate` with `menu.findItem(id).setVisible(false)`.
- * The same pattern is appended right after that block. The existing code
- * leaves the Menu reference clobbered (`move-result-object v0`), so the
- * menu is re-fetched from the NavigationView (`p1`) first; `v1` (scratch)
- * and `v8` (false) are reused.
+ * The same pattern is appended right after that block, wrapped in the pref
+ * check. The existing code leaves the Menu reference clobbered
+ * (`move-result-object v0`), so the menu is re-fetched from the
+ * NavigationView (`p1`) first. Only v0/v1 are touched; `v8` (false) is
+ * reused as both the pref default and the setVisible(false) argument.
  */
 private val HIDDEN_NAV_IDS = intArrayOf(
     0x7f0b0324, // nav_premium    "Your Account"
@@ -39,8 +46,8 @@ object MobileNavFingerprint : Fingerprint(
 @Suppress("unused")
 val hideNavProLinksPatch = bytecodePatch(
     name = "Hide account/PRO nav links",
-    description = "Hides the account and PRO-only entries (Your Account, Get Free PRO, PRO Benefits, PornDB, Global Search, PornTabs) from the mobile navigation drawer.",
-    default = false // disable on request; re-enable with --enable patch flag
+    description = "Adds a settings toggle ('Hide account / PRO links') that hides the account and PRO-only entries (Your Account, Get Free PRO, PRO Benefits, PornDB, Global Search, PornTabs) from the mobile navigation drawer. Off by default.",
+    default = true // runtime-controlled now; pref default keeps the links visible
     ) {
     compatibleWith(Constants.COMPATIBILITY_APP)
 
@@ -54,16 +61,26 @@ val hideNavProLinksPatch = bytecodePatch(
             ref != null && ref.definingClass == "Landroid/view/MenuItem;" && ref.name == "setVisible"
         }
         var index = lastIndex
-        method.addInstruction(
-            ++index,
-            "invoke-virtual {p1}, Lcom/google/android/material/navigation/NavigationView;->getMenu()Landroid/view/Menu;"
+        // Runtime gate: only v0/v1 are used; v8 (false) serves as pref default
+        // and as the setVisible(false) argument below.
+        val sb = StringBuilder(
+            """
+            const-string v1, "morphe_hide_nav_pro"
+            sget-object v0, Lka1;->j:Landroid/content/SharedPreferences;
+            invoke-interface {v0, v1, v8}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+            move-result v1
+            if-eqz v1, :cond_morphe_nav_skip
+            invoke-virtual {p1}, Lcom/google/android/material/navigation/NavigationView;->getMenu()Landroid/view/Menu;
+            move-result-object v0
+            """.trimIndent()
         )
-        method.addInstruction(++index, "move-result-object v0")
         for (id in HIDDEN_NAV_IDS) {
-            method.addInstruction(++index, "const v1, $id")
-            method.addInstruction(++index, "invoke-interface {v0, v1}, Landroid/view/Menu;->findItem(I)Landroid/view/MenuItem;")
-            method.addInstruction(++index, "move-result-object v1")
-            method.addInstruction(++index, "invoke-interface {v1, v8}, Landroid/view/MenuItem;->setVisible(Z)Landroid/view/MenuItem;")
+            sb.append("\nconst v1, $id\n")
+            sb.append("invoke-interface {v0, v1}, Landroid/view/Menu;->findItem(I)Landroid/view/MenuItem;\n")
+            sb.append("move-result-object v1\n")
+            sb.append("invoke-interface {v1, v8}, Landroid/view/MenuItem;->setVisible(Z)Landroid/view/MenuItem;\n")
         }
+        sb.append(":cond_morphe_nav_skip\nnop")
+        method.addInstructionsWithLabels(++index, sb.toString())
     }
 }

@@ -2,6 +2,37 @@
 
 Entry: `AGENTS.md`. Login states: `AGENTS-login.md`. TV: `AGENTS-tv.md`.
 
+- **Settings screens & runtime toggles (ModSettingsPatch, v1.6.0)**: the app ships its
+  own native settings UI on both sides — phone: custom fragment `er5` (rows built in
+  code via `K0(section title)` containers + `J0(container, title, subtitle, key,
+  default, listener)` switch rows; `listener = null` → plain toggle, key saved via
+  `ka1.f0(String, Z)`); TV: guided-step fragment `ua8` (actions built in `Q0` via
+  `c53` builder — id in field `a`, checked bit in field `f`, pref read with
+  `getBoolean(key, v1)` — click dispatch in `T0` by `cmp-long` on the id). Both store
+  prefs in `ka1.j` = `getSharedPreferences("settings", 0)` (init in ApplicationClass).
+  `res/xml/preferences.xml` (0x7f190007) is DEAD — referenced nowhere. Runtime
+  toggles exposed: `morphe_hide_nav_pro` (phone settings row + TV action, read in
+  `NavDrawer.onCreate` — default false = links visible), `morphe_show_api_errors`
+  (TV action, read in `m72.c` — default false = popup suppressed, replaces the old
+  unconditional `m72.a` return-void), `morphe_remove_news_promo` (no UI row, read in
+  `ce0.onPageFinished` — default true). HideNavProLinksPatch default is now TRUE
+  (pref-controlled); TV guided action ids: ours is 0x40, app's are 1..7.
+  Register tricks: NavDrawer gate reuses v0/v1/v8 (v8=false doubles as pref default);
+  `ce0.onPageFinished` clobbers p2 (URL dead in the default branch after invoke-super)
+  for the default=true register — `m72.a` could NOT host the read (locals 2, both
+  params live) which is why the gate lives in `m72.c` (locals 3).
+- **Patcher API gotchas (cost 1 CI-less iteration, found locally)**:
+  1. `addInstructionsWithLabels` with a branch to a label at the END of the smali
+     block → ArrayIndexOutOfBoundsException (the patcher treats targets past the
+     block as external labels). Fix: end the block with `:label\nnop`.
+  2. Reusing the ORIGINAL method's label name (e.g. `:cond_0`) inside an injected
+     block compiles to an unplaced dummy label → "Cannot get the location of a
+     label that hasn't been placed yet" at dex write (Q0). Drop such guards or
+     branch to a fresh block-local label.
+  3. `findInstructionIndicesReversedOrThrow { lambda }` (patches-library 1.6.2)
+     fails to resolve as an extension with a typed lambda — use a plain
+     `instructions.indexOfFirst { }` scan instead.
+
 - **API surface**: `https://porn-app.com/api/` (Retrofit, `dj.smali`), endpoints
   `v9/device`, `v9/sites`, `v9/unixTime`, `v9/login`, `v9/videoheaders`… Requests carry
   `Authorization: Bearer<accessToken>` and `hash` = RSA(4096)-PKCS1-encrypted
