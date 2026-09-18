@@ -1,3 +1,13 @@
+## [1.4.0](https://github.com/RjBiermann/brave-waffle/compare/v1.3.0...v1.4.0) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* decode the dummy ad URL before replacing VMAP ad tags ([1d3a165](https://github.com/RjBiermann/brave-waffle/commit/1d3a1655e704ca81e5920ab959486302496ee3b7))
+
+### ✨ New Features
+
+* bypass TV PRO check on site browsing ([1790c46](https://github.com/RjBiermann/brave-waffle/commit/1790c462f8e1c378fdd93d2c882ecf69217b3c1f))
+
 ## [1.3.0](https://github.com/RjBiermann/brave-waffle/compare/v1.2.1...v1.3.0) (2026-09-18)
 
 ### ✨ New Features
