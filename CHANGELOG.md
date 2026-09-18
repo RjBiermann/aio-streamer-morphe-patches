@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/RjBiermann/brave-waffle/compare/v1.7.0...v1.7.1) (2026-09-18)
+
+### 🐛 Bug Fixes
+
+* invert m72.c error-dialog gate (default off must suppress, not show) ([3cbf62b](https://github.com/RjBiermann/brave-waffle/commit/3cbf62b7eab97aa0dfe008772f57315cbf2cfde9))
+
 ## [1.7.0](https://github.com/RjBiermann/brave-waffle/compare/v1.6.0...v1.7.0) (2026-09-18)
 
 ### ✨ New Features
